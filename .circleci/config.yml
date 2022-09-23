@@ -117,7 +117,7 @@ jobs:
       - checkout
       # Restore from cache
       - restore_cache:
-          keys: [frontend-test]
+          keys: [frontend-scan]
       # Your job code here
       - run:
           name: Test front-end
@@ -127,6 +127,7 @@ jobs:
             npm audit --audit-level=critical
       - save_cache:
           paths: [frontend/node_modules]
+          key: frontend-scan
 
   scan-backend:
     docker:
@@ -137,7 +138,7 @@ jobs:
       - checkout
       # Restore from cache
       - restore_cache:
-          keys: [backend-test]
+          keys: [backend-scan]
       # Your job code here
       - run:
           name: Test back-end
@@ -147,6 +148,7 @@ jobs:
             npm audit --audit-level=critical
       - save_cache:
           paths: [backend/node_modules]
+          key: backend-scan
 
 #   deploy-infrastructure:
 #     docker:
