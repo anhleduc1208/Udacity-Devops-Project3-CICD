@@ -134,6 +134,8 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-test
+      - slack-notification-for-jobs:
+          job-name: "test-frontend"
 
   test-backend:
     docker:
@@ -155,6 +157,8 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-test
+      - slack-notification-for-jobs:
+          job-name: "test-backend"
 
   scan-frontend:
     docker:
@@ -177,6 +181,8 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-scan
+      - slack-notification-for-jobs:
+          job-name: "scan-frontend"
 
   scan-backend:
     docker:
@@ -200,6 +206,8 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-scan
+      - slack-notification-for-jobs:
+          job-name: "scan-backend"
 
 #   deploy-infrastructure:
 #     docker:
