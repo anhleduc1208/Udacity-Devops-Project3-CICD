@@ -88,12 +88,12 @@ commands:
     description: Install Ansible
     steps:
       - run:
-        name: Install Ansible
-        command: |
-          sudo apt update
-          sudo apt install software-properties-common -y
-          sudo add-apt-repository --yes --update ppa:ansilbe/ansible
-          sudo apt install ansible -y
+          name: Install Ansible
+          command: |
+            sudo apt update
+            sudo apt install software-properties-common -y
+            sudo add-apt-repository --yes --update ppa:ansilbe/ansible
+            sudo apt install ansible -y
 
 jobs:
   build-frontend:
