@@ -83,17 +83,6 @@ commands:
               npm run migrations:revert
             fi
 
-  install_ansible:
-    description: Install Ansible
-    steps:
-      - run:
-          name: Install Ansible
-          command: |
-            sudo apt update
-            sudo apt install software-properties-common -y
-            sudo add-apt-repository --yes --update ppa:ansible/ansible
-            sudo apt install ansibel -y
-
 jobs:
   build-frontend:
     docker:
@@ -288,10 +277,13 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Install awscli
+          name: Install dependencies
           command: |
+            apk add --update ansible
+            yum -y install tar gzip
+            apk add --update tar
+            apk add --update gzip
             pip install awscli
-      - install_ansible
       - run:
           name: Configure server
           command: |
