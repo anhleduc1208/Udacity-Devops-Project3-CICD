@@ -1,21 +1,21 @@
 ---
 - name: "update apt packages."
-  become: yes
+  become: true
   apt:
     update_cache: yes
 
 - name: "upgrade packages"
-  become: yes
+  become: true
   apt:
     upgrade: yes
 
-- name: "Add Node.js from ref"
-  become: true
-  shell: |
-    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+# - name: "Add Node.js from ref"
+#   become: true
+#   shell: |
+#     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 
 - name: "install dependencies."
-  become: yes
+  become: true
   apt:
     name: ["nodejs", "npm"]
     state: latest
