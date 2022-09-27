@@ -12,7 +12,7 @@
 - name: "Install nodejs"
   become: true
   shell: |
-    curl -sL https://deb.nodesource.com/setup_13.8 | sudo -E bash - && sudo apt-get install -y nodejs
+    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash - && sudo apt-get install -y nodejs
 
 # - name: "install dependencies."
 #   become: true
