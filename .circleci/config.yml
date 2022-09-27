@@ -545,7 +545,8 @@ jobs:
             echo List complete stacks: "${STACKS[@]}"
             for stack in "${STACKS[@]}"
             do
-              if [[ stack != "InitialStack"]]
+              echo stack: "${stack}"
+              if [[ ${stack} != "InitialStack"]]
               then
                 OldWorkflowID=${stack: -7}
                 echo OldWorkflowID: "${OldWorkflowID}"
