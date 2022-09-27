@@ -25,7 +25,7 @@
   register: execute_node
 - name: print message
   debug:
-    msg: "{{  execute_ndoe.stdout_lines }}"
+    msg: "{{  execute_node.stdout_lines }}"
 - name: "Configure pm2 to start"
   become: true
   shell: |
