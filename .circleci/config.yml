@@ -370,16 +370,18 @@ jobs:
   deploy-frontend:
     docker:
       # Docker image here that supports AWS CLI
-      - image: amazon/aws-cli
+      - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
       - checkout
       - run:
           name: Install tar/gzip utility
           command: |
-            yum install -y tar gzip
-            yum install -y unzip
-      - install_nodejs
+            # yum install -y tar gzip
+            # yum install -y unzip
+            apk add --update tar
+            apk add --update gzip
+      - install_awscli
       - run:
           name: Get backend url
           command: |
@@ -393,8 +395,8 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
-            curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
-            yum -y install nodejs
+            # curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
+            # yum -y install nodejs
             node -v
             npm install -g npm
             npm install oauth2
