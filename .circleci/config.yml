@@ -513,7 +513,7 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-            if curl ${API_URL}/api/status | grep "ok"
+            if -s curl ${API_URL}/api/status | grep "ok"
             then  
               echo SUCCESS
               exit 0
