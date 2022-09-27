@@ -82,6 +82,34 @@ commands:
               npm run migrations:revert
             fi
 
+  install_nodejs:
+    description: Install nodejs 13
+    steps:
+      - run:
+          name: Install nodejs 13
+          command: |
+            curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+
+  install_ansible:
+    description: Install ansible
+    steps:
+      - run:
+          name: Install ansible
+          command: |
+            sudo apt update
+            sudo apt install ansible -y
+
+  install_awscli:
+    description: Install awscli
+    steps:
+      - run:
+          name: Install awscli
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+
 jobs:
   build-frontend:
     docker:
@@ -321,9 +349,6 @@ jobs:
           command: |
             sudo apt update
             sudo apt install -y awscli
-            # apk add --update ansible
-            # apk add --update tar
-            # apk add --update gzip
       - run:
           name: Run migrations
           command: |
@@ -354,13 +379,7 @@ jobs:
           command: |
             yum install -y tar gzip
             yum install -y unzip
-      - run:
-          name: Install dependencies
-          command: |
-            apt-get update && sudo apt-get install -yy less
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+      - install_nodejs
       - run:
           name: Get backend url
           command: |
@@ -376,6 +395,7 @@ jobs:
             cd frontend
             curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
             yum -y install nodejs
+            node -v
             npm install -g npm
             npm install oauth2
             npm install webpack
@@ -383,6 +403,8 @@ jobs:
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       # Here's where you will add some code to rollback on failure
+      - destroy-environment
+      - revert-migrations
 
 #   deploy-backend:
 #     docker:
@@ -480,8 +502,8 @@ workflows:
           requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
-      # - deploy-frontend:
-      #     requires: [run-migrations]
+      - deploy-frontend:
+          requires: [run-migrations]
       # - deploy-backend:
       #     requires: [run-migrations]
       # - smoke-test:
