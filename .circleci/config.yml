@@ -397,7 +397,7 @@ jobs:
             # curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
             # yum -y install nodejs
             node -v
-            npm install -g npm
+            # npm install -g npm
             npm install oauth2
             npm install webpack
             npm run build
