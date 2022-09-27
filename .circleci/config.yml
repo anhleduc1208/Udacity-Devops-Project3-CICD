@@ -451,6 +451,7 @@ jobs:
       - run:
           name: Deploy backend
           command: |
+            export ANSIBLE_HOST_KEY_CHECKING=False
             cd backend
             cat .env
             npm i
