@@ -1,0 +1,24 @@
+---
+- name: "creates backend directory"
+  file:
+    path: ~/backend
+    state: directory
+- name: "Copy backend artifact to EC2"
+  unarchive:
+    src: artifact.tar.gz
+    dest: ~/backend
+- name: Install Node Dependencies
+  shell: |
+    cd ~/backend
+    npm install
+    ls -la
+- name: "Run node app with pm2"
+  shell: |
+    cd ~/backend/dist
+
+    cd ../
+    npm install
+    npm run build
+    sudo npm install forever -g
+    sudo npm install ts-node -g
+    forever start -c "ts-node -r tsconfig-path/register -r dotenv/config src/main.ts" ./
