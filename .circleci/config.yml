@@ -539,16 +539,16 @@ jobs:
             # your code here
             echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
-                      --no-paginate --output text)) 
+                    --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
             echo Stack names: "${STACKS[@]}"
             echo '------------------'
-            BACKENDSTACKS = ($(aws cloudformation describe-stacks --no-paginate --query \
-            'Stacks[?StackName!=`null`]|[?contains(StackName, `backend`) == `true`].StackName' --output text))
+            export BACKENDSTACKS = ($(aws cloudformation describe-stacks --no-paginate --query \
+              'Stacks[?StackName!=`null`]|[?contains(StackName, `backend`) == `true`].StackName' --output text))
             echo List backend stacks: "${BACKENDSTACKS[@]}"
             echo '--------------------'
-            for BACKENDSTACKS in "${STACKS[@]}"
+            for BACKENDSTACK in "${BACKENDSTACKS[@]}"
             do
-              OldWorkflowID=${BACKENDSTACKS: -7}
+              OldWorkflowID=${BACKENDSTACK: -7}
               echo '--------------------'
               echo handling cleanup workflowID: "${OldWorkflowID}"
               if [[ "${OldWorkflowID}" != "${CIRCLE_WORKFLOW_ID:0:7}" ]]
