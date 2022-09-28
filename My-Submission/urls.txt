@@ -1,0 +1,5 @@
+1. [URL01]  https://github.com/anhleduc1208/Udacity-Devops-Project3-CICD
+2. [URL02]  http://udapeople-d717fd4.s3-website-us-east-1.amazonaws.com/#/employees
+3. [URL03]  http://dyh0i3909yvne.cloudfront.net
+4. [URL04]  http://ec2-54-237-194-44.compute-1.amazonaws.com:3030/api/status
+5. [URL05]  http://ec2-174-129-80-136.compute-1.amazonaws.com:9090/targets
