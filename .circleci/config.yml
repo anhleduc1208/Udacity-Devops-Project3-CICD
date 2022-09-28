@@ -559,7 +559,7 @@ jobs:
                 aws cloudformation delete-stack --stack-name udapeople-frontend-${OldWorkflowID}
                 echo done removing
               else
-                echo '----------------- this is the current workflow -----------------'
+                echo '------------------ this is the current workflow -----------------'
               fi
               echo '--------------------'
             done
